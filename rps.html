@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function computerSelection() {
+          let options = ['rock', 'paper', 'scissors'];
+          let computerChoice = options[Math.floor(Math.random() * options.length)];
+          return computerChoice;  
+        }
+
+        function playRound(player, computer) {
+            if (player === computer) {
+                return 'tie';
+            } else if (player === 'rock' && computer === 'scissors') {
+                return 'win';
+            } else if (player === 'rock' && computer === 'paper') {
+                return 'loss';
+            } else if (player === 'scissors' && computer === 'rock') {
+                return 'loss';
+            } else if (player === 'scissors' && computer === 'paper') {
+                return 'win';
+            } else if (player === 'paper' && computer === 'rock') {
+                return 'win';
+            } else if (player === 'paper' && computer === 'scissors') {
+                return 'loss';
+            } 
+        }
+        
+        
+        function returnJack() {
+            let playerChoice = 'rock'; //jack-o-lantern 
+            let computerChoice = computerSelection();
+            let outcome = playRound(playerChoice, computerChoice);
+            displayResult(outcome);
+        }
+
+        function returnScarecrow() {
+            let playerChoice = 'scissors'; //scarecrow
+            let computerChoice = computerSelection();
+            let outcome = playRound(playerChoice, computerChoice);
+            displayResult(outcome);
+        }
+
+        function returnCrow() {
+            let playerChoice = 'paper'; //paper
+            let computerChoice = computerSelection();
+            let outcome = playRound(playerChoice, computerChoice);
+            displayResult(outcome);
+        }
+
+        function displayResult(outcome) {
+            let output = document.getElementById('output');
+            if (outcome === 'win') {
+                ++playerScore;
+                if (playerScore >= 5) {
+                    output.textContent = 'Congratulations! You beat the computer! Click again to start a new game.'
+                    playerScore = 0;
+                    computerScore = 0;
+                } else {
+                    output.textContent = 'You won! The score is now' + ' ' + playerScore + ' to ' + computerScore;
+                }
+            } else if (outcome === 'loss') {
+                ++computerScore;
+                if (computerScore >= 5) {
+                    output.textContent = 'Oh no, the computer beat you! Click again to start a new game.'
+                    playerScore = 0;
+                    computerScore = 0;
+                } else {
+                    output.textContent = 'You lost! The score is now ' + playerScore + ' to ' + computerScore;
+                }
+            } else if (outcome === 'tie') {
+                output.textContent = "It's a tie! The score is still " + playerScore + ' to ' + computerScore;
+            }
+        }
+
+        let playerScore = 0;
+        let computerScore = 0;
+
+        window.onload = function() {
+        
+            let b1 = document.getElementById('b1');
+            let b2 = document.getElementById('b2');
+            let b3 = document.getElementById('b3');
+
+            b1.addEventListener('click', returnJack);
+            b2.addEventListener('click', returnScarecrow);
+            b3.addEventListener('click', returnCrow);
+        }   
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Eater&display=swap" rel="stylesheet"> 
+    <title>Spooky Rock Paper Scissors</title>
+</head>
+<body>
+    <h1>A very spooky game</h1>
+    <h2>Make your selection if you dare</h2>
+    <h3>Crow eats the Jack-o-Lantern, the Scarecrow scares the crow away, and the Jack-o-lantern takes over the scarecrow and becomes a monster! OOooOOoo!</h3>
+    <div id='buttons'>
+        <button id='b1' type='button'>Jack-o-lantern</button>
+        <button id='b2' type='button'>Scarecrow</button>
+        <button id='b3' type='button'>Crow</button>
+    </div>
+    <p id='output'></p>
+</body>
+</html>
